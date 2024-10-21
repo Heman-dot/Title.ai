@@ -1,0 +1,3 @@
+echo "venv/" >> .gitignore
+echo "*.h5" >> .gitignore
+echo "*.dylib" >> .gitignore
