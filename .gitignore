@@ -24,4 +24,46 @@ yarn-error.log*
 
 title-ai-ml/model/
 title-ai-ml/venv/
-title-ai-ml/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folders
+venv/
+env/
+.venv/
+*.env
+
+# Title-ai-ml specific
+title-ai-ml/data/
+title-ai-ml/*.h5
+title-ai-ml/model/*.h5
+title-ai-ml/model/*.pt
+title-ai-ml/*.pt
+title-ai-ml/*.pth
+title-ai-ml/*.pkl
+title-ai-ml/*.ckpt
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# pip
+pip-wheel-metadata/
+*.egg-info/

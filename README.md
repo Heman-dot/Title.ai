@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# Title.ai
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Title.ai is a small full-stack web project that helps verify and suggest titles using a machine learning model.
 
-## Available Scripts
+The repository contains three main parts:
 
-In the project directory, you can run:
+- Frontend (React) — a Create React App-based UI in `src/` with pages for Home, Features, About, Login/Register and Profile.
+- Backend (Node/Express) — an API and auth in `title-ai-backend/` that handles user registration/login and serves as the bridge to the ML service.
+- ML service (Python) — `title-ai-ml/` contains the model code, preprocessing and a small Flask app to serve the model for title verification.
 
-### `npm start`
+This README explains how the pieces fit together and how to run the system locally.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Title verification model (trained weights present locally under `title-ai-ml/model/` — note these are intentionally excluded from git)
+- Web UI to enter and verify titles
+- Authentication (register/login) via the backend
+- Simple Flask endpoint to expose the ML model for inference
 
-### `npm test`
+## Project layout
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+title-ai/
+├─ src/                # React frontend
+├─ title-ai-backend/   # Node/Express backend (auth & API)
+└─ title-ai-ml/        # ML code, model files, scripts
+```
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Quick start (development)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Prerequisites:
 
-### `npm run eject`
+- Node.js (16+ recommended)
+- npm or yarn
+- Python 3.8+ and pip for the ML service
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1) Install frontend dependencies
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+cd /Users/heman/Downloads/title-ai
+npm install
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2) Start backend (title-ai-backend)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cd title-ai-backend
+npm install
+node server.js
+# or use nodemon if available
+```
 
-## Learn More
+3) Run the ML service (title-ai-ml)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+cd title-ai-ml/app
+# it is recommended to create a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python app.py
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The ML app exposes endpoints defined in `title-ai-ml/app/app.py` (for example, a prediction route) that the backend can call for verification.
 
-### Code Splitting
+## Data & model files
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Trained model files (e.g. `*.h5`, `*.pt`) and raw datasets are intentionally excluded from git via `.gitignore` to prevent committing large binaries. Local copies may exist under `title-ai-ml/model/` or `title-ai-ml/data/`.
+- If you want to include models in the repository, use Git LFS — otherwise keep them in a cloud artifact store and download during deployment.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
